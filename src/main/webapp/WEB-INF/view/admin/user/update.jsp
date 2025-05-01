@@ -21,16 +21,16 @@
             <div class="col-md-6 col-12 mx-auto">
                 <h1>Update User</h1>
                 <hr>
-                <form:form action="${pageContext.request.contextPath}/admin/user/create" 
+                <form:form action="${pageContext.request.contextPath}/admin/user/update" 
                 method="post" modelAttribute="newUser" >
-                    <div class="mb-3">
+                    <div class="mb-3 " style="display: none;">
                         <label for="id" class="form-label">Id: </label>
                         <form:input type="text" class="form-control"  path="id" />
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
                         <form:input type="text" class="form-control" id="email" name="email"
-                        path="email" />
+                        path="email" disabled="true"/>
                     </div>
                     <div class="mb-3">
                         <label for="phoneNumber" class="form-label">Phone number:</label>

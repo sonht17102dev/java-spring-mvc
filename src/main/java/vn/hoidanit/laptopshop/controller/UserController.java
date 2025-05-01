@@ -34,7 +34,6 @@ public class UserController {
     @GetMapping("/admin/user")
     public String getUserPage(Model model) {
         List<User> arrUsers = userService.getAllUsers();
-        System.out.println(">>> check users: " + arrUsers);
         model.addAttribute("users", arrUsers);
         return "admin/user/table-user";
     }
@@ -55,11 +54,37 @@ public class UserController {
         model.addAttribute("newUser", user);
         return "admin/user/update";
     }
+
+    @GetMapping("/admin/user/delete/{id}")
+    public String getDeleteUserPage(Model model, @PathVariable Long id) {
+        User user = new User();
+        user.setId(id);
+        model.addAttribute("newUser", user);
+        model.addAttribute("id", id);
+        return "admin/user/delete";
+    }
+
     @PostMapping("/admin/user/create")
     public String createUserPage(Model model, @ModelAttribute("newUser") User newUser) {
         System.out.println(newUser);
         userService.handleSaveUser(newUser);
         return "redirect:/admin/user";
     }
-   
+    @PostMapping("/admin/user/update")
+    public String updateUserPage(Model model, @ModelAttribute("newUser") User newUser) {
+        User currentUser = userService.getUserById(newUser.getId());
+        if(currentUser != null) {
+            currentUser.setAddress(newUser.getAddress());
+            currentUser.setFullName(newUser.getFullName());
+            currentUser.setPhone(newUser.getPhone());
+            userService.handleSaveUser(currentUser);
+            
+        }
+        return "redirect:/admin/user";
+    }
+    @PostMapping("/admin/user/delete")
+    public String deleteUser(Model model, @ModelAttribute("newUser") User newUser) {
+        userService.deleteUserById(newUser.getId());
+        return "redirect:/admin/user";
+    }
 }
