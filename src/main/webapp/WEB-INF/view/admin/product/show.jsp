@@ -24,27 +24,13 @@
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
-                    <h1 class="mt-4">Manage Users</h1>
+                    <h1 class="mt-4">Manage Products</h1>
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item"><a href="/admin"> Dashboard</a></li>
-                        <li class="breadcrumb-item active"> Users </li>
+                        <li class="breadcrumb-item active"> Products </li>
+                        
                     </ol>
-                    <div class="container mt-5">
-                        <div class="row">
-                            <div class="col-12 mx-auto">
-                                <h1>Delete User with id = ${id}</h1>
-                
-                            </div>
-                            <hr/>
-                            <div class="alert alert-danger" role="alert">
-                                Are you sure to delete this user?
-                            </div>
-                            <form:form method="post" modelAttribute="newUser" action="/admin/user/delete">
-                                <form:input type="hidden" name="id" path="id"/>
-                                <button class="btn btn-danger">Confirm</button>
-                            </form:form>
-                        </div>
-                    </div>
+                    <div>Product content</div>
                 
                     
                 </div>
@@ -59,5 +45,3 @@
 </body>
 
 </html>
-
-    

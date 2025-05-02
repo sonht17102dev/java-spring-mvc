@@ -28,41 +28,28 @@
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item"><a href="/admin"> Dashboard</a></li>
                         <li class="breadcrumb-item active"> Users </li>
-                        
                     </ol>
-                    <div class="mt-5">
+                    <div class="container mt-5">
                         <div class="row">
                             <div class="col-12 mx-auto">
                                 <div class="d-flex justify-content-between">
                 
-                                    <h1>Table Users</h1>
-                                    <a class="btn btn-primary" href="/admin/user/create" >Create a user</a>
+                                    <h1>User Detail</h1>
                                 </div>
                                 <hr>
-                                <table class="table table-bordered table-hover">
-                                    <thead>
-                                        <tr>
-                                          <th scope="col">ID</th>
-                                          <th scope="col">Email</th>
-                                          <th scope="col">Full Name</th>
-                                          <th scope="col">Action</th>
-                                        </tr>
-                                      </thead>
-                                      <tbody>
-                                       <c:forEach var="user" items="${users}">
-                                        <tr>
-                                            <td>${user.id}</td>
-                                            <td>${user.email}</td>
-                                            <td>${user.fullName}</td>
-                                            <td>
-                                                <a class="btn btn-primary" href="/admin/user/${user.id}">View</a>
-                                                <a class="btn btn-warning mx-2" href="/admin/user/update/${user.id}">Update</a>
-                                                <a class="btn btn-danger" href="/admin/user/delete/${user.id}">Delete</a>
-                                            </td>
-                                        </tr>
-                                       </c:forEach>
-                                      </tbody>
-                                </table>
+                                <div class="card" style="width: 60%;">
+                                    <div class="card-header">
+                                    User Information
+                                    </div>
+                                    <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">ID: ${id}</li>
+                                    <li class="list-group-item">Email: ${user.email}</li>
+                                    <li class="list-group-item">Fullname: ${user.fullName}</li>
+                                    <li class="list-group-item">Address: ${user.address}</li>
+                                    </ul>
+                                </div>
+                                <a href="/admin/user" class="btn btn-success mt-3">Back to User List</a>
+                               
                             </div>
                         </div>
                     </div>
