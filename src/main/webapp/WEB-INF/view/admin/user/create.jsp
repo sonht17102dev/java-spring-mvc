@@ -48,7 +48,7 @@
                             <h1>Create User</h1>
                             <hr>
                             <form:form action="${pageContext.request.contextPath}/admin/user/create" 
-                            method="post" modelAttribute="newUser" class="row">
+                            method="post" modelAttribute="newUser" class="row" enctype="multipart/form-data">
                                 <div class="mb-3 col-12 col-md-6" >
                                     <label for="email" class="form-label">Email</label>
                                     <form:input type="text" class="form-control" id="email" name="email"
@@ -75,14 +75,15 @@
                                 </div>
                                 <div class="mb-3 col-12 col-md-6" >
                                     <label class="form-label">Role: </label>
-                                    <select class="form-select" aria-label="Default select example">
-                                        <option value="ADMIN">ADMIN</option>
-                                        <option value="USER">USER</option>
-                                      </select>
+                                    <form:select class="form-select" path="role.name">
+                                        <form:option value="ADMIN">ADMIN</form:option>
+                                        <form:option value="USER">USER</form:option>
+                                    </form:select>
                                 </div>
                                 <div class="mb-3 col-12 col-md-6" >
                                     <label for="avatarFile" class="form-label">Avatar: </label>
-                                    <input type="file" class="form-control" id="avatarFile" accept=".png, .jpg, .jpeg">
+                                    <input type="file" class="form-control"  name="avatarFile"
+                                    id="avatarFile" accept=".png, .jpg, .jpeg"/>
                                 </div>
                                 <div class="mb-3 col-12" >
                                     <img style="max-height: 250px; display: none;" alt="avatar preview" id="avatarPreview">

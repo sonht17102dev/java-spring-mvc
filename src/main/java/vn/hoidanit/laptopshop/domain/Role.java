@@ -1,7 +1,8 @@
 package vn.hoidanit.laptopshop.domain;
 
-import java.util.Set;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,6 +29,6 @@ public class Role {
     private String name;
     private String description;
 
-    @OneToMany(mappedBy = "role")
-    private Set<User> users;
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
+    private List<User> users;
 }
