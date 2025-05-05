@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.List;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,20 +26,20 @@ public class UserController {
     private final UploadService uploadService;
 
     private final UserService userService;
-    private final ServletContext servletContext;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserController(UserService userService, ServletContext servletContext, UploadService uploadService) {
+    public UserController(UserService userService, UploadService uploadService, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userService = userService;
-        this.servletContext = servletContext;
         this.uploadService = uploadService;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    @GetMapping("/")
-    public String getHomePage(Model model) {
-        List<User> arrUsers = userService.getAllUsersByEmail("thanhson3900@gmail.com");
-        System.out.println(arrUsers);
-        return "hello";
-    }
+    // @GetMapping("/")
+    // public String getHomePage(Model model) {
+    //     List<User> arrUsers = userService.getAllUsersByEmail("thanhson3900@gmail.com");
+    //     System.out.println(arrUsers);
+    //     return "hello";
+    // }
 
     @GetMapping("/admin/user")
     public String getUserPage(Model model) {
@@ -80,8 +81,13 @@ public class UserController {
     public String createUserPage(Model model, @ModelAttribute("newUser") User newUser,
     @RequestParam("avatarFile") MultipartFile file) {
         String avatarFileName = uploadService.handleSaveUploadFile(file, "avatar");
-        
-        // userService.handleSaveUser(newUser);
+        String hashPassword = bCryptPasswordEncoder.encode(newUser.getPassword());
+        newUser.setAvatar(avatarFileName);
+        newUser.setPassword(hashPassword);
+        // Set role
+        newUser.setRole(userService.getRoleByName(newUser.getRole().getName()));
+
+        userService.handleSaveUser(newUser);
         return "redirect:/admin/user";
     }
 
