@@ -30,7 +30,44 @@
                         <li class="breadcrumb-item active"> Products </li>
                         
                     </ol>
-                    <div>Product content</div>
+                    <div class="mt-5">
+                        <div class="row">
+                            <div class="col-12 mx-auto">
+                                <div class="d-flex justify-content-between">
+                
+                                    <h1>Table Products</h1>
+                                    <a class="btn btn-primary" href="/admin/product/create" >Create a product</a>
+                                </div>
+                                <hr>
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                          <th scope="col">ID</th>
+                                          <th scope="col">Name</th>
+                                          <th scope="col">Price</th>
+                                          <th scope="col">Factory</th>
+                                          <th scope="col">Action</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                       <!-- <c:forEach var="user" items="${users}">
+                                        <tr>
+                                            <td>${user.id}</td>
+                                            <td>${user.email}</td>
+                                            <td>${user.fullName}</td>
+                                            <td>${user.role.name}</td>
+                                            <td>
+                                                <a class="btn btn-primary" href="/admin/user/${user.id}">View</a>
+                                                <a class="btn btn-warning mx-2" href="/admin/user/update/${user.id}">Update</a>
+                                                <a class="btn btn-danger" href="/admin/user/delete/${user.id}">Delete</a>
+                                            </td>
+                                        </tr> -->
+                                       </c:forEach>
+                                      </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 
                     
                 </div>

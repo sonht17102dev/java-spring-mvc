@@ -1,7 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -50,13 +50,21 @@
                             <form:form action="${pageContext.request.contextPath}/admin/user/create" 
                             method="post" modelAttribute="newUser" class="row" enctype="multipart/form-data">
                                 <div class="mb-3 col-12 col-md-6" >
+                                    <c:set var="errorEmail">
+                                        <form:errors path="email" cssClass="invalid-feedback"/>
+                                    </c:set>
                                     <label for="email" class="form-label">Email</label>
-                                    <form:input type="text" class="form-control" id="email" name="email"
+                                    <form:input type="text" class="form-control ${not empty errorEmail ? 'is-invalid': ''}" id="email" name="email"
                                     path="email" />
+                                    ${errorEmail}
                                 </div>
                                 <div class="mb-3 col-12 col-md-6" >
+                                    <c:set var="errorPassword">
+                                        <form:errors path="password" cssClass="invalid-feedback"/>
+                                    </c:set>
                                     <label for="password" class="form-label">Password</label>
-                                    <form:input type="password" class="form-control" id="password" name="password" path="password" />
+                                    <form:input type="password" class="form-control ${not empty errorPassword ? 'is-invalid': ''}"  path="password" />
+                                    ${errorPassword}
                                 </div>
                                 <div class="mb-3 col-12 col-md-6" >
                                     <label for="phoneNumber" class="form-label">Phone number:</label>
@@ -64,9 +72,13 @@
                                     path="phone" />
                                 </div>
                                 <div class="mb-3 col-12 col-md-6" >
+                                    <c:set var="errorFullName">
+                                        <form:errors path="fullName" cssClass="invalid-feedback"/>
+                                    </c:set>
                                     <label for="fullName" class="form-label">Full Name:</label>
-                                    <form:input type="text" class="form-control" id="fullName" name="fullName"
+                                    <form:input type="text" class="form-control ${not empty errorPassword ? 'is-invalid': ''}" 
                                     path="fullName" />
+                                    ${errorFullName}
                                 </div>
                                 <div class="mb-3 col-12" >
                                     <label for="address" class="form-label">Address:</label>
