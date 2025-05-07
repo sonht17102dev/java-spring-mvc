@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="Hỏi Dân IT - Dự án laptopshop" />
     <meta name="author" content="Hỏi Dân IT" />
-    <title>Dashboard - Hỏi Dân IT</title>
+    <title>Detail Product</title>
     <link href="/css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
@@ -28,43 +28,28 @@
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item"><a href="/admin"> Dashboard</a></li>
                         <li class="breadcrumb-item active"> Products </li>
-                        
                     </ol>
-                    <div class="mt-5">
+                    <div class="container mt-5">
                         <div class="row">
                             <div class="col-12 mx-auto">
                                 <div class="d-flex justify-content-between">
                 
-                                    <h1>Table Products</h1>
-                                    <a class="btn btn-primary" href="/admin/product/create" >Create a product</a>
+                                    <h1>Product Detail</h1>
                                 </div>
                                 <hr>
-                                <table class="table table-bordered table-hover">
-                                    <thead>
-                                        <tr>
-                                          <th scope="col">ID</th>
-                                          <th scope="col">Name</th>
-                                          <th scope="col">Price</th>
-                                          <th scope="col">Factory</th>
-                                          <th scope="col">Action</th>
-                                        </tr>
-                                      </thead>
-                                      <tbody>
-                                       <c:forEach var="product" items="${products}">
-                                        <tr>
-                                            <td>${product.id}</td>
-                                            <td>${product.name}</td>
-                                            <td>${product.price}</td>
-                                            <td>${product.factory}</td>
-                                            <td>
-                                                <a class="btn btn-primary" href="/admin/product/${product.id}">View</a>
-                                                <a class="btn btn-warning mx-2" href="/admin/product/update/${product.id}">Update</a>
-                                                <a class="btn btn-danger" href="/admin/product/delete/${product.id}">Delete</a>
-                                            </td>
-                                        </tr>
-                                       </c:forEach>
-                                      </tbody>
-                                </table>
+                                <div class="card" style="width: 60%;">
+                                    <img src="/images/product/${product.image}" class="card-img-top" alt="Product Image">
+                                    <div class="card-header">
+                                        Products Information
+                                    </div>
+                                    <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">ID: ${id}</li>
+                                    <li class="list-group-item">Name: ${product.name}</li>
+                                    <li class="list-group-item">Price: ${product.price}</li>
+                                    </ul>
+                                </div>
+                                <a href="/admin/product" class="btn btn-success mt-3">Back to Product List</a>
+                               
                             </div>
                         </div>
                     </div>

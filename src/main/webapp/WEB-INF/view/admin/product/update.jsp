@@ -11,15 +11,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="Hỏi Dân IT - Dự án laptopshop" />
     <meta name="author" content="Hỏi Dân IT" />
-    <title>Create Product - Hỏi Dân IT</title>
+    <title>Update Product</title>
     <link href="/css/styles.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <script>
         $(document).ready(() => {
-            const avatarFile = $("#avatarFile");
+            const avatarFile = $("#imageFile");
+            const orgImage = "${newProduct.image}";
+            if (orgImage) {
+                const imgURL = "/images/product/" + orgImage;
+                $("#avatarPreview").attr("src", imgURL);
+                $("#avatarPreview").css({ "display": "block" });
+            }
             avatarFile.change(function (e) {
                 const imgURL = URL.createObjectURL(e.target.files[0]);
+                console.log(imgURL);
                 $("#avatarPreview").attr("src", imgURL);
                 $("#avatarPreview").css({ "display": "block" });
             });
@@ -27,6 +35,7 @@
     </script>
 
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+
 </head>
 
 <body class="sb-nav-fixed">
@@ -40,15 +49,16 @@
                     <h1 class="mt-4">Manage Products</h1>
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item"><a href="/admin"> Dashboard</a></li>
-                        <li class="breadcrumb-item active"> Product </li>
+                        <li class="breadcrumb-item active"> Products </li>
                         
                     </ol>
-                    <div class="row">
-                        <div class="col-md-6 col-12 mx-auto">
-                            <h1>Create a product</h1>
-                            <hr>
-                            <form:form action="${pageContext.request.contextPath}/admin/product/create" 
-                            method="post" modelAttribute="newProduct" class="row" enctype="multipart/form-data">
+                    <div class="mt-5">
+                        <div class="row">
+                            <div class="col-md-6 col-12 mx-auto">
+                                <h1>Update Product</h1>
+                                <hr>
+                                <form:form action="${pageContext.request.contextPath}/admin/product/update" 
+                                method="post" modelAttribute="newProduct" enctype="multipart/form-data" >
                                 <c:set var="errorName">
                                     <form:errors path="name" cssClass="invalid-feedback"/>
                                 </c:set>
@@ -64,6 +74,13 @@
                                 <c:set var="errorQuantity">
                                     <form:errors path="quantity" cssClass="invalid-feedback"/>
                                 </c:set>
+                                <c:set var="productImage">
+                                    <form:errors path="quantity" cssClass="invalid-feedback"/>
+                                </c:set>
+                                <div class="mb-3 " style="display: none;">
+                                    <label for="id" class="form-label">Id: </label>
+                                    <form:input type="text" class="form-control"  path="id" />
+                                </div>
                                 <div class="mb-3 col-12 col-md-6" >
                                     <label for="name" class="form-label">Name</label>
                                     <form:input type="text" class="form-control ${not empty errorName ? 'is-invalid': ''}" 
@@ -121,14 +138,17 @@
                                     id="imageFile" accept=".png, .jpg, .jpeg"/>
                                 </div>
                                 <div class="mb-3 col-12" >
-                                    <img style="max-height: 250px; display: none;" alt="avatar preview" id="avatarPreview">
+                                    <img style="max-height: 250px;" 
+                                    alt="avatar preview" id="avatarPreview">
                                 </div>
                                 <div class="mb-5 col-12" >
-                                    <button type="submit" class="btn btn-primary">Create Product</button>
+                                    <button type="submit" class="btn btn-primary">Update Product</button>
                                 </div>
-                            </form:form>
+                                </form:form>
+                            </div>
                         </div>
                     </div>
+                
                     
                 </div>
             </main>
@@ -142,3 +162,6 @@
 </body>
 
 </html>
+
+
+    
