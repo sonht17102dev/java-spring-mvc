@@ -20,6 +20,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import vn.hoidanit.laptopshop.service.validator.StrongPassword;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -39,7 +40,8 @@ public class User {
 
 
     @NotNull
-    @Size(min = 2, message = "Password phải có tối thiểu 2 ký tự")
+    //@Size(min = 2, message = "Password phải có tối thiểu 2 ký tự")
+    @StrongPassword(message = "Password phải có ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt")
     private String password;
 
     @NotNull

@@ -66,13 +66,10 @@
                 </div>
             </div>
             <!-- Modal Search End -->
-
-            <jsp:include page="../layout/banner.jsp" />
-
-            <jsp:include page="../layout/feature.jsp" />
-
-
-            <!-- Fruits Shop Start-->
+             <!-- Banner start-->
+             <jsp:include page="../layout/banner.jsp" />
+             <!-- Banner end-->
+            <!-- Laptop Shop Start-->
             <div class="container-fluid fruite py-5">
                 <div class="container py-5">
                     <div class="tab-class text-center">
@@ -135,11 +132,13 @@
                     </div>
                 </div>
             </div>
-            <!-- Fruits Shop End-->
-
-
-
+            <!-- Laptop Shop End-->
+            <!-- Feature Start -->
+            <jsp:include page="../layout/feature.jsp" />
+            <!-- Feature end -->
+            <!-- Footer start -->
             <jsp:include page="../layout/footer.jsp" />
+            <!-- Footer end -->
 
 
             <!-- Back to Top -->

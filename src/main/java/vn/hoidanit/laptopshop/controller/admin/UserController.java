@@ -37,12 +37,6 @@ public class UserController {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    // @GetMapping("/")
-    // public String getHomePage(Model model) {
-    //     List<User> arrUsers = userService.getAllUsersByEmail("thanhson3900@gmail.com");
-    //     System.out.println(arrUsers);
-    //     return "hello";
-    // }
 
     @GetMapping("/admin/user")
     public String getUserPage(Model model) {
