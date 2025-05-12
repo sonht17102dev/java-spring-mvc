@@ -40,6 +40,11 @@ public class AuthenController {
 
         return "client/authen/login";
     }
+    @GetMapping("/access-deny")
+    public String getDenyPage(Model model) {
+
+        return "client/authen/access-deny";
+    }
     
     @PostMapping("/register")
     public String handleRegister(@ModelAttribute("registerUser") @Valid RegisterDTO registerUser, BindingResult result,

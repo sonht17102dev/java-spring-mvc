@@ -43,31 +43,8 @@
 
             <jsp:include page="../layout/header.jsp" />
 
-
-
-            <!-- Modal Search Start -->
-            <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-fullscreen">
-                    <div class="modal-content rounded-0">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body d-flex align-items-center">
-                            <div class="input-group w-75 mx-auto d-flex">
-                                <input type="search" class="form-control p-3" placeholder="keywords"
-                                    aria-describedby="search-icon-1">
-                                <span id="search-icon-1" class="input-group-text p-3"><i
-                                        class="fa fa-search"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Modal Search End -->
-             <!-- Banner start-->
-             <jsp:include page="../layout/banner.jsp" />
+            <!-- Banner start-->
+            <jsp:include page="../layout/banner.jsp" />
              <!-- Banner end-->
             <!-- Laptop Shop Start-->
             <div class="container-fluid fruite py-5">
@@ -97,8 +74,10 @@
                                             <div class="col-md-6 col-lg-4 col-xl-3">
                                                 <div class="rounded position-relative fruite-item">
                                                     <div class="fruite-img">
-                                                        <img src="/images/product/${product.image}"
-                                                            class="img-fluid w-100 rounded-top" alt="Product Image">
+                                                        <a href="/product/${product.id}">
+                                                            <img src="/images/product/${product.image}"
+                                                                class="img-fluid w-100 rounded-top" alt="Product Image">
+                                                        </a>
                                                     </div>
                                                     <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
                                                         style="top: 10px; left: 10px;">Laptop</div>
