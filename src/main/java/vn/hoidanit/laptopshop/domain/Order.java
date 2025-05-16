@@ -36,4 +36,9 @@ public class Order {
 
     @OneToMany(mappedBy = "order")
     List<OrderDetail> orderDetails;
+
+    private String receiverName;
+    private String receiverPhone;
+    private String receiverAddress;
+    private String status;
 }

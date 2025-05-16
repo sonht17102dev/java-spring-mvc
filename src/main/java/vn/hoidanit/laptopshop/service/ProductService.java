@@ -9,10 +9,14 @@ import org.springframework.stereotype.Service;
 import jakarta.servlet.http.HttpSession;
 import vn.hoidanit.laptopshop.domain.Cart;
 import vn.hoidanit.laptopshop.domain.CartDetail;
+import vn.hoidanit.laptopshop.domain.Order;
+import vn.hoidanit.laptopshop.domain.OrderDetail;
 import vn.hoidanit.laptopshop.domain.Product;
 import vn.hoidanit.laptopshop.domain.User;
 import vn.hoidanit.laptopshop.repository.CartDetailRepository;
 import vn.hoidanit.laptopshop.repository.CartRepository;
+import vn.hoidanit.laptopshop.repository.OrderDetailRepository;
+import vn.hoidanit.laptopshop.repository.OrderRepository;
 import vn.hoidanit.laptopshop.repository.ProductRepository;
 
 @Service
@@ -23,13 +27,18 @@ public class ProductService {
     private final CartDetailRepository cartDetailRepository;
     private final UserService userService;
     
+    private final OrderRepository orderRepository;
+    private final OrderDetailRepository orderDetailRepository;
+    
 
     public ProductService(ProductRepository productRepository, CartDetailRepository cartDetailRepository, 
-    CartRepository cartRepository, UserService userService) {
+    CartRepository cartRepository, UserService userService, OrderDetailRepository orderDetailRepository, OrderRepository orderRepository) {
         this.productRepository = productRepository;
         this.cartRepository = cartRepository;
         this.cartDetailRepository = cartDetailRepository;
         this.userService = userService;
+        this.orderRepository = orderRepository;
+        this.orderDetailRepository = orderDetailRepository;
     }
 
     public Product saveProduct(Product product) {
@@ -116,6 +125,59 @@ public class ProductService {
             } else {
                 // delete cart (sum = 1)
                 cartRepository.deleteById(cart.getId());
+                session.setAttribute("sum", 0);
+            }
+        }
+    }
+
+    public void handleUpdateCartBeforeCheckout(List<CartDetail> cartDetails) {
+        for( CartDetail cartDetail : cartDetails) {
+            Optional<CartDetail> cartDetailOptional = cartDetailRepository.findById(cartDetail.getId());
+            if(cartDetailOptional.isPresent()) {
+                CartDetail realCartDetail = cartDetailOptional.get();
+                // update quantity
+                realCartDetail.setQuantity(cartDetail.getQuantity());
+                cartDetailRepository.save(realCartDetail);
+            }
+        }
+    }
+
+
+    public void handlePlaceOrder(User user, HttpSession session, String receiverName, String receiverPhone,
+            String receiverAddress) {
+        // create order
+        Order order = new Order();
+        order.setUser(user);
+        order.setReceiverName(receiverName);
+        order.setReceiverPhone(receiverPhone);
+        order.setReceiverAddress(receiverAddress);
+        order = orderRepository.save(order);
+        
+        // created order detail
+        // step 1: get cart by user
+        Cart cart = cartRepository.findByUser(user);
+
+        if (cart != null) {
+            List<CartDetail> cartDetails = cart.getCartDetails();
+
+            if (cartDetails != null) {
+                for (CartDetail cartDetail : cartDetails) {
+                    OrderDetail orderDetail = new OrderDetail();
+                    orderDetail.setOrder(order);
+                    orderDetail.setProduct(cartDetail.getProduct());
+                    orderDetail.setPrice(cartDetail.getPrice());
+                    orderDetail.setQuantity(cartDetail.getQuantity());
+                    orderDetailRepository.save(orderDetail);
+                }
+
+                // step 2: delete cart detail and cart
+                for (CartDetail cartDetail : cartDetails) {
+                    cartDetailRepository.deleteById(cartDetail.getId());
+                }
+
+                cartRepository.deleteById(cart.getId());
+
+                // step 3: update session
                 session.setAttribute("sum", 0);
             }
         }
