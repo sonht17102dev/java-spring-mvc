@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
 import vn.hoidanit.laptopshop.domain.Product;
 import vn.hoidanit.laptopshop.service.ProductService;
 
@@ -21,6 +20,8 @@ public class HomePageController {
     public String getHomePage(Model model) {
         List<Product> arrProducts = productService.getAllProducts();
         model.addAttribute("products", arrProducts);
+
+
         return "client/homepage/show";
     }
 }

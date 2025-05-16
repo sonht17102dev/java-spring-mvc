@@ -48,14 +48,14 @@ public class ProductController {
 
     @GetMapping("/admin/product/{id}")
     public String getProductDetailPage(Model model, @PathVariable Long id) {
-        Product product = productService.getProductById(id);
+        Product product = productService.getProductById(id).get();
         model.addAttribute("product", product);
         return "admin/product/detail";
     }
 
     @GetMapping("/admin/product/update/{id}")
     public String getUpdateProductPage(Model model, @PathVariable Long id) {
-        Product product = productService.getProductById(id);
+        Product product = productService.getProductById(id).get();
         model.addAttribute("newProduct", product);
         return "admin/product/update";
     }
@@ -97,13 +97,13 @@ public class ProductController {
     public String updateProductPage(@ModelAttribute("newProduct") @Valid Product newProduct,
         BindingResult result, Model model, @RequestParam("imageFile") MultipartFile file) {
         // fix bug image
-        Product oldProduct = productService.getProductById(newProduct.getId());
+        Product oldProduct = productService.getProductById(newProduct.getId()).get();
         if(result.hasErrors()) {
             newProduct.setImage(oldProduct.getImage()); // assign old image
             model.addAttribute("newProduct", newProduct);
             return "admin/product/update";
         }    
-        Product currentProduct = productService.getProductById(newProduct.getId());
+        Product currentProduct = productService.getProductById(newProduct.getId()).get();
         if (currentProduct != null) {
             // update new image
             if (!file.isEmpty()) {
